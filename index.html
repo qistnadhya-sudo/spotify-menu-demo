@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crave Beats | Spotify Vibe Menu</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Sidebar Kiri (Ala Spotify) -->
+    <aside class="sidebar">
+      <div class="logo-area">
+        <div class="logo-dot"></div>
+        <h1>CraveBeats</h1>
+      </div>
+
+      <nav class="nav-menu">
+        <p class="nav-label">PLAYLIST MENU</p>
+        <button class="playlist-btn active" data-playlist="all">
+          <span class="icon">🔥</span> Semua Koleksi
+        </button>
+        <button class="playlist-btn" data-playlist="midnight">
+          <span class="icon">🌙</span> Lofi Midnight Munchies
+        </button>
+        <button class="playlist-btn" data-playlist="caffeine">
+          <span class="icon">☕</span> Morning Caffeine Rush
+        </button>
+        <button class="playlist-btn" data-playlist="combo">
+          <span class="icon">💿</span> Top Hits Combo
+        </button>
+      </nav>
+
+      <div class="sidebar-card">
+        <h4>Mood Hari Ini</h4>
+        <p>Pasang muzik lo-fi di bar bawah sambil pilih menu kegemaran anda.</p>
+      </div>
+    </aside>
+
+    <!-- Kandungan Utama -->
+    <main class="main-view">
+      <!-- Top Header -->
+      <header class="top-bar">
+        <div class="search-greeting">
+          <span class="pill-tag">✨ SPECIAL EDITION MENU</span>
+          <h2 id="playlistTitle">Semua Koleksi</h2>
+        </div>
+
+        <button id="openCartBtn" class="cart-pill-btn">
+          <span>Queue / Troli</span>
+          <span id="cartCount" class="badge-count">0</span>
+        </button>
+      </header>
+
+      <!-- Banner Playlist -->
+      <section class="playlist-banner">
+        <div class="banner-art">
+          <span>🎧</span>
+        </div>
+        <div class="banner-details">
+          <span class="banner-type">CURATED FOOD PLAYLIST</span>
+          <h3>Snek & Kopi Pilihan Untuk Teman Study & Santai</h3>
+          <p>Pilih item seperti memilih lagu kegemaran anda, terus hantar ke WhatsApp.</p>
+        </div>
+      </section>
+
+      <!-- Grid Kad Album Makanan -->
+      <section class="tracks-section">
+        <div id="productGrid" class="album-grid">
+          <!-- Dijana melalui script.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Bottom Floating Music Player Bar (Ala Spotify) -->
+  <footer class="player-bar">
+    <div class="now-playing">
+      <div class="mini-cover" id="playerCover">🎵</div>
+      <div class="track-meta">
+        <h4 id="nowPlayingTitle">Midnight Study Lo-Fi</h4>
+        <p id="nowPlayingSub">CraveBeats Radio • Chill Ambience</p>
+      </div>
+      <div class="visualizer" id="visualizer">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="player-controls">
+      <button id="playPauseBtn" class="play-circle-btn" title="Play / Pause Lo-Fi Music">▶</button>
+      <div class="progress-wrapper">
+        <span class="time-text">LIVE</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="time-text">∞</span>
+      </div>
+    </div>
+
+    <div class="player-actions">
+      <button id="bottomCartBtn" class="checkout-mini-btn">
+        Semak Pesanan (<span id="bottomTotal">RM 0.00</span>)
+      </button>
+    </div>
+
+    <!-- Audio Lo-Fi Bebas Hak Cipta -->
+    <audio id="bgAudio" loop preload="none">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
+  </footer>
+
+  <!-- Slide-out Cart Drawer -->
+  <div id="cartOverlay" class="cart-overlay"></div>
+  <aside id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Order Queue</h3>
+      <button id="closeCartBtn" class="close-btn">&times;</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="form-group">
+        <label for="custName">Nama Anda *</label>
+        <input type="text" id="custName" placeholder="Contoh: Dhiya (Meja 4 / Blok A)" />
+
+        <label for="deliveryType">Pilihan Penerimaan</label>
+        <select id="deliveryType">
+          <option value="Self-Pickup (RM0)">Self-Pickup (Percuma)</option>
+          <option value="COD / Penghantaran (+RM1.00)">COD / Penghantaran (+RM1.00)</option>
+        </select>
+
+        <label for="custNote">Catatan Tambahan</label>
+        <input type="text" id="custNote" placeholder="Contoh: Kurang manis / Extra pedas" />
+      </div>
+
+      <div class="total-row">
+        <span>Total Bayaran</span>
+        <strong id="cartTotal">RM 0.00</strong>
+      </div>
+
+      <button id="checkoutBtn" class="whatsapp-submit-btn">
+        Hantar Pesanan ke WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
