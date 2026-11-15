@@ -21,7 +21,7 @@ body {
   background-color: var(--bg-base);
   color: var(--text-primary);
   overflow-x: hidden;
-  padding-bottom: 90px; /* Ruang untuk bottom player */
+  padding-bottom: 90px;
 }
 
 /* Layout Utama */
@@ -265,7 +265,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Floating Play/Add Button ala Spotify */
 .play-add-btn {
   position: absolute;
   bottom: 10px;
@@ -379,7 +378,6 @@ body {
   color: var(--text-secondary);
 }
 
-/* Audio Visualizer Bars */
 .visualizer {
   display: flex;
   align-items: flex-end;
