@@ -1,6 +1,5 @@
 const SELLER_PHONE = "60128655181";
 
-// Senarai Menu Gaya "Album Tracks"
 const menuTracks = [
   {
     id: 1,
@@ -66,7 +65,6 @@ const menuTracks = [
 
 let cart = [];
 
-// DOM Elements
 const productGrid = document.getElementById("productGrid");
 const playlistBtns = document.querySelectorAll(".playlist-btn");
 const playlistTitle = document.getElementById("playlistTitle");
@@ -82,13 +80,11 @@ const bottomTotal = document.getElementById("bottomTotal");
 const deliveryType = document.getElementById("deliveryType");
 const checkoutBtn = document.getElementById("checkoutBtn");
 
-// Music Player Elements
 const bgAudio = document.getElementById("bgAudio");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const visualizer = document.getElementById("visualizer");
 const nowPlayingTitle = document.getElementById("nowPlayingTitle");
 
-// Papar Kad Album
 function renderTracks(playlistFilter = "all") {
   productGrid.innerHTML = "";
   const filtered = playlistFilter === "all"
@@ -114,7 +110,6 @@ function renderTracks(playlistFilter = "all") {
   });
 }
 
-// Tukar Playlist
 playlistBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelector(".playlist-btn.active").classList.remove("active");
@@ -125,7 +120,7 @@ playlistBtns.forEach(btn => {
   });
 });
 
-// Tambah ke Troli + Kemas Kini "Now Playing" Bar
+// Tambah ke Troli (Senyap, tak buka drawer sendiri)
 function addToCart(id) {
   const track = menuTracks.find(t => t.id === id);
   if (!track) return;
@@ -137,10 +132,8 @@ function addToCart(id) {
     cart.push({ ...track, qty: 1 });
   }
 
-  // Kemas kini bar bawah seolah-olah lagu/item dipilih
-  nowPlayingTitle.textContent = `Selected: ${track.title}`;
+  nowPlayingTitle.textContent = `Added: ${track.title}`;
   updateCartUI();
-  openCart();
 }
 
 function changeQty(id, delta) {
@@ -198,7 +191,6 @@ function updateCartUI() {
 
 deliveryType.addEventListener("change", updateCartUI);
 
-// Kawalan Muzik Lo-Fi
 let isPlaying = false;
 playPauseBtn.addEventListener("click", () => {
   if (isPlaying) {
@@ -213,7 +205,6 @@ playPauseBtn.addEventListener("click", () => {
   isPlaying = !isPlaying;
 });
 
-// Buka/Tutup Drawer
 function openCart() {
   cartDrawer.classList.add("open");
   cartOverlay.classList.add("open");
@@ -228,7 +219,6 @@ bottomCartBtn.addEventListener("click", openCart);
 closeCartBtn.addEventListener("click", closeCart);
 cartOverlay.addEventListener("click", closeCart);
 
-// Hantar Pesanan ke WhatsApp
 checkoutBtn.addEventListener("click", () => {
   if (cart.length === 0) {
     alert("Sila pilih sekurang-kurangnya satu item daripada playlist.");
@@ -260,6 +250,5 @@ checkoutBtn.addEventListener("click", () => {
   window.open(url, "_blank");
 });
 
-// Mula
 renderTracks();
 updateCartUI();
