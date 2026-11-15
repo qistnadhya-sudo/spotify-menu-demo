@@ -79,11 +79,38 @@ const cartTotal = document.getElementById("cartTotal");
 const bottomTotal = document.getElementById("bottomTotal");
 const deliveryType = document.getElementById("deliveryType");
 const checkoutBtn = document.getElementById("checkoutBtn");
+const toastContainer = document.getElementById("toastContainer");
 
 const bgAudio = document.getElementById("bgAudio");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const visualizer = document.getElementById("visualizer");
 const nowPlayingTitle = document.getElementById("nowPlayingTitle");
+
+// Fungsi Papar Toast Notification (Auto hilang dalam 2.2 saat)
+function showToast(itemTitle, currentQty) {
+  // Hadkan maksimum 2 toast serentak supaya skrin tak penuh jika tekan laju
+  if (toastContainer.children.length >= 2) {
+    toastContainer.firstChild.remove();
+  }
+
+  const toast = document.createElement("div");
+  toast.className = "toast-item";
+  toast.innerHTML = `
+    <div class="toast-icon">✓</div>
+    <div class="toast-content">
+      <h5>Ditambah ke Troli</h5>
+      <p>${itemTitle} (Jumlah: ${currentQty})</p>
+    </div>
+  `;
+
+  toastContainer.appendChild(toast);
+
+  // Hilang secara automatik selepas 2.2 saat
+  setTimeout(() => {
+    toast.classList.add("hide");
+    toast.addEventListener("animationend", () => toast.remove());
+  }, 2200);
+}
 
 function renderTracks(playlistFilter = "all") {
   productGrid.innerHTML = "";
@@ -120,20 +147,31 @@ playlistBtns.forEach(btn => {
   });
 });
 
-// Tambah ke Troli (Senyap, tak buka drawer sendiri)
+// Tambah ke Troli + Munculkan Toast Gaya ShopeeFood
 function addToCart(id) {
   const track = menuTracks.find(t => t.id === id);
   if (!track) return;
 
   const existing = cart.find(item => item.id === id);
+  let itemQty = 1;
+
   if (existing) {
     existing.qty += 1;
+    itemQty = existing.qty;
   } else {
     cart.push({ ...track, qty: 1 });
   }
 
   nowPlayingTitle.textContent = `Added: ${track.title}`;
   updateCartUI();
+
+  // Animasi pop pada nombor badge troli
+  cartCount.classList.remove("badge-pop");
+  void cartCount.offsetWidth; // Trigger reflow untuk reset animasi
+  cartCount.classList.add("badge-pop");
+
+  // Papar notifikasi ringkas yang hilang sendiri
+  showToast(track.title, itemQty);
 }
 
 function changeQty(id, delta) {
